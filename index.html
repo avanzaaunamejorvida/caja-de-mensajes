@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu Caja de Mensajes que Cierran Clientes | Avanza a una Mejor Vida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#070707;
+    --black2:#0e0e0e;
+    --panel:#141210;
+    --panel2:#1b1813;
+    --gold:#FFB300;
+    --gold-bright:#FFD24A;
+    --gold-deep:#C8860B;
+    --gold-pale:#FFE38A;
+    --title:#EEE27D;
+    --green:#00C851;
+    --green-glow:#16e35f;
+    --green-deep:#00993d;
+    --red:#ff3b30;
+    --red-glow:#ff5a4d;
+    --white:#FFFFFF;
+    --muted:#9a948a;
+    --line:rgba(255,179,0,.18);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'DM Sans',system-ui,sans-serif;
+    background:var(--black);
+    background-image:radial-gradient(900px 500px at 85% -12%, rgba(255,179,0,.10), transparent 60%);
+    color:var(--white);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+
+  /* HEADER */
+  header{text-align:center;padding:48px 20px 26px}
+  .eyebrow{
+    display:inline-block;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;border:1px solid var(--line);
+    border-radius:999px;padding:8px 18px;margin-bottom:22px;
+  }
+  h1{
+    font-family:'Playfair Display',serif;font-weight:800;
+    background:linear-gradient(180deg,#FFF4C2 0%,#EEE27D 26%,#D4AF37 55%,#A87B1E 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#EEE27D;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.5));
+    font-size:clamp(1.9rem,6vw,3rem);line-height:1.08;letter-spacing:-.01em;margin-bottom:16px;
+  }
+  h1 .accent{background:linear-gradient(180deg,#FFF4C2 0%,#FFD24A 30%,#E0A92E 70%,#9A6B12 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none}
+  .sub{color:var(--muted);font-size:clamp(1rem,2.6vw,1.1rem);max-width:540px;margin:0 auto;color:#cfc7ba}
+
+  /* MOTIVATION */
+  .motivation{
+    margin:30px auto 6px;max-width:620px;
+    background:linear-gradient(135deg, rgba(255,179,0,.12), rgba(255,210,74,.04));
+    border:1px solid var(--line);border-radius:18px;padding:20px 24px;
+    text-align:center;font-size:1.02rem;color:var(--gold-pale);
+  }
+  .motivation b{color:var(--gold-bright);font-weight:700}
+
+  /* STEP LABELS */
+  .step-label{display:flex;align-items:center;gap:12px;margin:38px 0 16px}
+  .step-num{
+    flex:none;width:34px;height:34px;border-radius:50%;
+    background:linear-gradient(135deg,var(--gold-bright),var(--gold-deep));
+    color:var(--black);font-family:'Syne',sans-serif;font-weight:800;
+    display:grid;place-items:center;font-size:1rem;
+    box-shadow:0 0 18px rgba(255,179,0,.35);
+  }
+  .step-label h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.22rem;background:linear-gradient(180deg,#FFF4C2 0%,#EEE27D 30%,#D4AF37 65%,#A87B1E 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .step-label p{font-size:.84rem;color:var(--muted);margin-top:1px}
+
+  /* GRIDS */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+  .opt{
+    appearance:none;cursor:pointer;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:16px 12px;color:var(--white);font-family:'DM Sans',sans-serif;
+    font-size:.96rem;font-weight:500;text-align:center;
+    transition:transform .15s ease, border-color .2s ease, background .2s ease;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .opt .ic{font-size:1.5rem;line-height:1}
+  .opt:hover{transform:translateY(-2px);border-color:var(--gold)}
+  .opt[aria-pressed="true"]{
+    background:linear-gradient(135deg, rgba(255,179,0,.16), rgba(255,210,74,.05));
+    border-color:var(--gold-bright);
+    box-shadow:0 0 0 1px var(--gold-bright) inset, 0 0 22px rgba(255,179,0,.22);
+  }
+  .opt[aria-pressed="true"] .ic{filter:drop-shadow(0 0 6px rgba(255,179,0,.6))}
+
+  .sit-grid{grid-template-columns:1fr}
+  @media(min-width:520px){.sit-grid{grid-template-columns:1fr 1fr}}
+  .sit{text-align:left;flex-direction:row;align-items:center;gap:12px;padding:15px 16px}
+  .sit .ic{font-size:1.3rem}
+  .sit span.t{font-weight:600}
+  .sit small{display:block;color:var(--muted);font-weight:400;font-size:.8rem;margin-top:1px}
+
+  /* RESULT */
+  #result{margin:34px 0 10px;scroll-margin-top:20px}
+  .empty{
+    text-align:center;color:var(--muted);border:1px dashed var(--line);
+    border-radius:18px;padding:40px 24px;font-size:.98rem;
+  }
+  .empty .big{font-size:2rem;display:block;margin-bottom:10px;opacity:.7}
+
+  .card{
+    background:var(--panel2);border:1px solid var(--line);
+    border-radius:20px;overflow:hidden;
+    box-shadow:0 24px 60px rgba(0,0,0,.55);
+  }
+  .card-top{
+    background:var(--black2);border-bottom:1px solid var(--line);
+    padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  }
+  .card-top .tag{font-size:.78rem;letter-spacing:.04em;color:var(--gold);font-weight:600}
+  .card-top .tag b{color:var(--gold-bright);font-weight:700}
+  .msg{
+    padding:24px 22px 4px;font-size:1.06rem;line-height:1.62;
+    white-space:pre-wrap;color:#f2ece0;
+  }
+  .why{
+    margin:14px 22px 0;padding:14px 16px;
+    background:rgba(255,179,0,.07);border-left:3px solid var(--gold);
+    border-radius:10px;font-size:.9rem;color:#cfc7ba;
+  }
+  .why b{color:var(--gold-bright)}
+  .card-actions{padding:18px 22px 24px}
+  .copy-btn{
+    width:100%;
+    background:linear-gradient(135deg,var(--green-glow),var(--green-deep));
+    color:#04210f;border:none;cursor:pointer;
+    font-family:'DM Sans',sans-serif;font-weight:700;font-size:1.05rem;
+    padding:16px;border-radius:14px;
+    transition:transform .12s ease, filter .2s ease;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    box-shadow:0 0 22px rgba(0,200,81,.3);
+  }
+  .copy-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  .copy-btn:active{transform:translateY(1px)}
+  .copy-btn.done{background:linear-gradient(135deg,var(--gold-bright),var(--gold-deep));color:var(--black);box-shadow:0 0 22px rgba(255,179,0,.4)}
+
+  .nav{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  .nav button{
+    flex:1;background:var(--panel);border:1px solid var(--line);color:var(--gold);
+    cursor:pointer;padding:12px;border-radius:12px;
+    font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:500;
+    transition:border-color .2s, background .2s;
+  }
+  .nav button:hover{border-color:var(--gold-bright);background:rgba(255,179,0,.08)}
+  .counter{text-align:center;font-size:.84rem;color:var(--muted);margin-top:12px}
+
+  /* CLOSING */
+  .close-note{
+    margin:40px auto 8px;max-width:600px;text-align:center;
+    font-family:'Playfair Display',serif;font-weight:700;font-size:1.2rem;line-height:1.45;background:linear-gradient(180deg,#FFF4C2 0%,#EEE27D 30%,#D4AF37 65%,#A87B1E 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .close-note span{-webkit-text-fill-color:transparent}
+
+  /* FOOTER */
+  footer{margin-top:48px;border-top:1px solid var(--line);padding:36px 20px 50px;text-align:center}
+  .brand{font-family:'Playfair Display',serif;font-weight:700;font-size:1.2rem;background:linear-gradient(180deg,#FFF4C2 0%,#EEE27D 30%,#D4AF37 65%,#A87B1E 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+  .site{color:#cfc7ba;font-size:.95rem;margin-bottom:20px}
+  .socials{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+  .socials a{
+    color:var(--white);text-decoration:none;border:1px solid var(--line);
+    border-radius:999px;padding:9px 18px;font-size:.9rem;font-weight:500;
+    transition:border-color .2s, background .2s;
+  }
+  .socials a:hover{border-color:var(--gold);background:rgba(255,179,0,.08)}
+  .quote{color:var(--muted);font-size:.86rem;font-style:italic;max-width:420px;margin:0 auto}
+
+  /* TOAST */
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+    background:var(--panel2);color:var(--white);border:1px solid var(--gold);
+    padding:13px 22px;border-radius:999px;font-weight:600;font-size:.95rem;
+    box-shadow:0 12px 40px rgba(0,0,0,.6);opacity:0;pointer-events:none;
+    transition:opacity .25s, transform .25s;z-index:50;display:flex;align-items:center;gap:8px;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+
+  /* selector de versiones */
+  .vlabel{font-size:.72rem;color:var(--muted);font-weight:500}
+  .vbar{display:flex;gap:8px;padding:14px 22px 0}
+  .vdot{
+    width:34px;height:34px;border-radius:10px;cursor:pointer;
+    background:var(--panel);border:1px solid var(--line);color:var(--muted);
+    font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;
+    transition:all .18s ease;
+  }
+  .vdot:hover{border-color:var(--gold);color:var(--gold)}
+  .vdot.on{
+    background:linear-gradient(135deg,var(--gold-bright),var(--gold-deep));
+    color:var(--black);border-color:var(--gold-bright);
+    box-shadow:0 0 14px rgba(255,179,0,.35);
+  }
+
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">Bono · Tu Primer Dinero Extra</span>
+  <h1>Qué decir para conseguir<br>tu cliente <span class="accent">sin sudar</span></h1>
+  <p class="sub">No necesitas inventar las palabras. Elige tu oficio y el momento en el que estás. Te damos el mensaje listo para copiar y enviar.</p>
+</header>
+
+<div class="wrap">
+
+  <div class="motivation">
+    El miedo más grande no es que te digan que no. Es quedarte callado.
+    <br><b>Aquí ya tienes las palabras. Solo falta que las mandes.</b>
+  </div>
+
+  <div class="step-label">
+    <div class="step-num">1</div>
+    <div><h2>Elige tu oficio</h2><p>El que ya sabes hacer con los ojos cerrados.</p></div>
+  </div>
+  <div class="grid" id="oficios"></div>
+
+  <div class="step-label">
+    <div class="step-num">2</div>
+    <div><h2>¿En qué momento estás?</h2><p>Elige la situación que estás viviendo ahora mismo.</p></div>
+  </div>
+  <div class="grid sit-grid" id="situaciones"></div>
+
+  <div id="result">
+    <div class="empty">
+      <span class="big">📱</span>
+      Elige tu oficio y tu momento.<br>Tu mensaje aparecerá aquí, listo para copiar.
+    </div>
+  </div>
+
+  <div class="close-note">
+    Tú ya cargaste con lo difícil.<br><span>Esto es solo un mensaje más.</span>
+  </div>
+
+</div>
+
+<footer>
+  <div class="brand">Avanza a una Mejor Vida</div>
+  <div class="site">avanzaaunamejorvida.com</div>
+  <div class="socials">
+    <a href="https://instagram.com/avanzaaunamejorvida" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://tiktok.com/@avanzaaunamejorvida" target="_blank" rel="noopener">TikTok</a>
+    <a href="https://facebook.com/AvanzaaunaMejorVida" target="_blank" rel="noopener">Facebook</a>
+  </div>
+  <p class="quote">"No sueñes con el éxito. Trabaja por él." Y tú ya estás trabajando.</p>
+</footer>
+
+<div class="toast" id="toast">✅ Mensaje copiado. Ahora pégalo y envíalo.</div>
+
+<script>
+const OFICIOS = [
+  {id:"jardineria", ic:"🌿", name:"Jardinería", servicio:"corte de césped y mantenimiento de jardín"},
+  {id:"limpieza",   ic:"🏠", name:"Limpieza",   servicio:"limpieza de casas"},
+  {id:"construccion",ic:"🔨",name:"Construcción",servicio:"pintura, reparaciones y remodelación"},
+  {id:"comida",     ic:"🍽️", name:"Comida casera",servicio:"comida casera y pedidos"},
+  {id:"detailing",  ic:"🚗", name:"Detailing",   servicio:"lavado y detailing de autos a domicilio"},
+  {id:"cuidado",    ic:"❤️", name:"Cuidado de personas",servicio:"cuidado de niños y personas mayores"},
+  {id:"pintura",    ic:"🎨", name:"Pintura",     servicio:"pintura residencial"},
+  {id:"piscinas",   ic:"💧", name:"Piscinas",    servicio:"limpieza y mantenimiento de piscinas"},
+];
+
+const SITUACIONES = [
+  {id:"primer",     ic:"👋", t:"Contactar por primera vez", s:"A tu red: familia, vecinos, amigos."},
+  {id:"seguimiento",ic:"🔁", t:"No me han contestado",      s:"El mensaje que recupera al que se quedó callado."},
+  {id:"caro",       ic:"💬", t:"Me dijeron \"está caro\"",   s:"Sin bajar el precio ni rogar."},
+  {id:"precio",     ic:"💲", t:"Me preguntan el precio",     s:"Cómo darlo con seguridad."},
+  {id:"resena",     ic:"⭐", t:"Pedir una reseña",           s:"Después de un buen trabajo."},
+  {id:"referido",   ic:"🤝", t:"Pedir un referido",          s:"Que un cliente te traiga otro."},
+  {id:"subir",      ic:"📈", t:"Subir mi precio",            s:"A clientes nuevos, sin perderlos."},
+  {id:"recurrente", ic:"📅", t:"Ofrecer servicio fijo",      s:"Convertir un cliente en mensual."},
+];
+
+/* Cada situación tiene un "why" y 3 variantes de mensaje (funciones del oficio) */
+const MENSAJES = {
+  primer:{
+    why:`Empieza por quien ya te conoce. No pides un favor: ofreces resolver un problema. La gente apoya a quien ve dar el paso con dignidad.`,
+    variantes:[
+      (o)=>`Hola [nombre], espero que estés muy bien 🙏\n\nQuería contarte algo con mucha ilusión: empecé a ofrecer ${o.servicio} aquí en el área. Estoy tomando mis primeros clientes y por eso tengo un precio especial esta semana.\n\n¿Conoces a alguien que lo necesite? O si tú lo necesitas, con gusto paso y te doy un precio sin compromiso. Te mando fotos de mi trabajo cuando quieras.\n\nGracias por tu apoyo, de corazón. 💪`,
+      (o)=>`Hola [nombre], ¿cómo estás? 😊\n\nTe escribo porque di un paso que llevaba tiempo queriendo dar: ahora ofrezco ${o.servicio} por mi cuenta. Lo hago con todo el cuidado y las ganas del mundo.\n\nSi tú o alguien que conoces necesita una mano con esto, aquí estoy. Trabajo honesto, puntual y bien hecho. ¿Te gustaría que te pase un precio?`,
+      (o)=>`Hola [nombre] 👋\n\nUna noticia: empecé mi propio servicio de ${o.servicio} y estoy buscando a mis primeros clientes en la zona. Sé que cuando uno empieza, lo más valioso es la confianza de la gente que ya lo conoce, y por eso te escribo a ti primero.\n\nSi te sirve o conoces a alguien, con gusto le doy buen precio y mejor trabajo. ¡Gracias por el empujón! 🙌`
+    ]
+  },
+  seguimiento:{
+    why:`El 70% de los clientes se pierden porque nadie da seguimiento. La mayoría no te dice que no: simplemente se le pasó. Recordarles, sin presión, es lo que cierra.`,
+    variantes:[
+      (o)=>`Hola [nombre], ¿cómo va todo? 😊\n\nSolo paso a saludarte y saber si pudiste ver mi mensaje sobre el servicio de ${o.servicio}. Sin ningún apuro, ¿eh?\n\nEsta semana todavía tengo un espacio y quise ofrecértelo a ti antes de llenarlo. Si te animas, lo dejamos listo.`,
+      (o)=>`Hola [nombre] 🙏\n\nSé que el día a día nos come a todos, así que no quería que se te pasara. Sigo disponible para ayudarte con ${o.servicio} cuando lo necesites.\n\nSi quieres, dime qué día te queda bien y yo me acomodo a ti. Aquí estoy para cuando estés listo.`,
+      (o)=>`Hola [nombre], espero no molestar 😊\n\nTe escribo rapidito para recordarte que sigo a la orden con el servicio de ${o.servicio}. A veces el primer mensaje se pierde entre tantos, por eso insisto con cariño.\n\n¿Lo vemos para esta semana? Me encantaría poder ayudarte.`
+    ]
+  },
+  caro:{
+    why:`No bajes el precio de inmediato: eso te resta valor. Explica qué incluye tu trabajo. Quien valora la calidad se queda; quien solo busca lo barato no era tu cliente.`,
+    variantes:[
+      (o)=>`Te entiendo perfectamente 🙏\n\nMi precio incluye mi tiempo, mi experiencia y que el trabajo de ${o.servicio} quede bien hecho desde la primera vez. No me voy hasta que quedes contento.\n\nPrefiero cobrar lo justo y entregar calidad, que cobrar poco y dejar algo a medias. ¿Te parece si paso a verlo y te explico bien qué incluye antes de que decidas?`,
+      (o)=>`Lo entiendo, y gracias por ser sincero conmigo 😊\n\nMira, no soy el más barato y no quiero serlo. Lo que sí te aseguro es que cuando termine, vas a ver la diferencia y no vas a tener que volver a llamar a nadie más para arreglarlo.\n\nLa tranquilidad de un trabajo bien hecho también vale. ¿Quieres que lo conversemos con calma?`,
+      (o)=>`Te comprendo, a todos nos importa cuidar el dinero 🙏\n\nPor eso te explico: lo que cobro es por hacerlo bien, con materiales correctos y sin atajos. Un trabajo barato muchas veces sale caro después.\n\nQuiero que esto sea una buena inversión para ti, no un gasto. Si gustas, te muestro exactamente qué recibes por ese precio.`
+    ]
+  },
+  precio:{
+    why:`Nunca digas "depende" ni pidas que el cliente ponga el precio. Da un rango con seguridad y abre la puerta a verlo. Un número claro transmite que sabes lo que haces.`,
+    variantes:[
+      (o)=>`¡Hola! Gracias por escribir 😊\n\nDependiendo del tamaño del trabajo, el servicio de ${o.servicio} está entre $[X] y $[X]. Para darte un precio exacto, cuéntame un poco más de lo que necesitas o mándame una foto.\n\nTrabajo limpio, puntual y dejo todo como debe quedar. ¿Para cuándo lo necesitas?`,
+      (o)=>`¡Hola! Qué gusto que me escribas 🙏\n\nMi servicio de ${o.servicio} normalmente va desde $[X], aunque el precio final depende de un par de detalles. Si me mandas una foto o me cuentas un poquito más, te doy el número exacto al instante.\n\nTe aseguro un trabajo que te va a dejar tranquilo. ¿Cuándo te vendría bien?`,
+      (o)=>`¡Hola! Con mucho gusto te paso precios 😊\n\nPara ${o.servicio}, el rango está entre $[X] y $[X] según lo que se necesite. No te preocupes, soy claro desde el principio: nada de sorpresas ni cobros escondidos.\n\nDime qué necesitas y te doy el precio cerrado hoy mismo.`
+    ]
+  },
+  resena:{
+    why:`Una reseña vale más que cualquier anuncio pagado. Nueve de cada diez clientes contentos dicen que sí, pero solo si lo pides. Hazlo fácil y sin pena.`,
+    variantes:[
+      (o)=>`Hola [nombre], espero que todo siga bien después del trabajo de ${o.servicio} 🙏\n\nMe alegró mucho que quedaras contento. Si tienes un minuto, me ayudaría muchísimo que dejaras una reseña corta. Solo toma dos minutos y ayuda a que más familias me conozcan.\n\nTe mando el enlace directo si te animas. ¡Gracias de corazón! 😊`,
+      (o)=>`Hola [nombre] 😊\n\nFue un verdadero gusto ayudarte con ${o.servicio}. Quería pedirte un favorcito: si quedaste a gusto, ¿me dejarías una reseña? Para alguien que está empezando, las palabras de un cliente contento valen oro.\n\nSi me dices que sí, te paso el enlace y listo. ¡Mil gracias! 🙏`,
+      (o)=>`Hola [nombre], ¿cómo va todo? 🙏\n\nGracias de nuevo por confiar en mí para el trabajo de ${o.servicio}. Me encantaría que más personas de la comunidad supieran que pueden contar con un servicio honesto.\n\nSi tienes un momentito, una reseña tuya haría una diferencia enorme. Te lo agradecería muchísimo. 😊`
+    ]
+  },
+  referido:{
+    why:`Un cliente satisfecho puede traerte cinco más. No esperes a que lo hagan solos: pídelo con calidez. El referido llega con confianza ya ganada.`,
+    variantes:[
+      (o)=>`Hola [nombre], fue un gusto trabajar contigo 🙏\n\nTe pido un favor pequeño: si conoces a alguien (un vecino, un familiar, un compañero de trabajo) que pueda necesitar ${o.servicio}, pásale mi número. Le doy el mismo buen servicio, y a ti, por la recomendación, siempre te tengo un precio especial.\n\n¡Gracias por la confianza! 💪`,
+      (o)=>`Hola [nombre] 😊\n\nQuedé muy contento de haberte ayudado con ${o.servicio}. La verdad es que mi negocio crece gracias a personas como tú que me recomiendan.\n\nSi se te viene a la mente alguien que necesite este servicio, con gusto lo atiendo igual de bien. Y para ti siempre habrá un detalle por la ayuda. ¡Gracias! 🙏`,
+      (o)=>`Hola [nombre], espero que estés disfrutando el resultado del trabajo de ${o.servicio} 🙌\n\nTe cuento algo: la mejor publicidad que tengo es el boca a boca de clientes contentos. Si conoces a alguien que pueda necesitarme, una recomendación tuya significaría muchísimo.\n\nLes daré el mismo cuidado que te di a ti. ¡Mil gracias por el apoyo! 😊`
+    ]
+  },
+  subir:{
+    why:`Si tienes más trabajo del que puedes atender, tu precio está bajo. Sube primero a clientes nuevos y mantén el precio a los leales. Cobrar barato no te hace más confiable, al contrario.`,
+    variantes:[
+      (o)=>`Hola, gracias por tu interés en el servicio de ${o.servicio} 😊\n\nQuiero ser claro y honesto: por la demanda que tengo, mi precio para clientes nuevos ahora es $[X]. Ese precio me permite darte un trabajo bien hecho, sin apuros y dejándote 100% satisfecho.\n\nSi te parece bien, con gusto agendamos. Vas a notar la diferencia.`,
+      (o)=>`¡Hola! Gracias por escribirme 🙏\n\nTe comento con transparencia: ajusté un poco mis precios porque ahora tengo más trabajo y quiero seguir dando la misma calidad de siempre, sin correr. El servicio de ${o.servicio} hoy está en $[X].\n\nCreo de verdad que lo vale, y quiero que tú también lo sientas así. ¿Lo vemos?`,
+      (o)=>`Hola, qué gusto saludarte 😊\n\nSeré directo y honesto contigo: mi tarifa para ${o.servicio} ahora es $[X]. Subí mis precios porque me he ganado la confianza de muchos clientes y quiero seguir entregando un trabajo del que me sienta orgulloso.\n\nNo es el más barato, pero sí uno en el que puedes confiar. ¿Te animas?`
+    ]
+  },
+  recurrente:{
+    why:`Un cliente de una vez te da una vez. Un cliente fijo te da ingreso predecible todo el año, y te recomienda. Ofrécele un plan: gana él, ganas tú.`,
+    variantes:[
+      (o)=>`Hola [nombre], ¿qué te pareció el trabajo? 😊\n\nQuería ofrecerte algo: en vez de llamarme cada vez, puedo pasar de forma fija (cada semana o cada dos semanas) para que no tengas que preocuparte por ${o.servicio}. Te hago un mejor precio por ser cliente fijo.\n\nAsí siempre lo tienes resuelto y con la misma persona de confianza. ¿Te interesa?`,
+      (o)=>`Hola [nombre] 🙏\n\nMe encantó cómo quedó el trabajo de ${o.servicio} y me encantaría seguir cuidándotelo. ¿Qué te parece si lo dejamos en un plan fijo? Yo me encargo de que siempre esté impecable y tú te olvidas del tema.\n\nA los clientes fijos les doy prioridad y mejor precio. ¿Lo armamos juntos?`,
+      (o)=>`Hola [nombre], espero que estés feliz con el resultado 😊\n\nTe hago una propuesta que te conviene: en lugar de buscarlo cada vez, dejemos un servicio de ${o.servicio} de forma regular. Tú ganas tranquilidad, yo gano un cliente fiel, y todos contentos.\n\nAdemás te sale más económico. ¿Te gustaría que lo dejemos agendado?`
+    ]
+  },
+};
+
+let sel = {oficio:null, situacion:null, variante:0};
+
+const oficiosEl=document.getElementById("oficios");
+OFICIOS.forEach(o=>{
+  const b=document.createElement("button");
+  b.className="opt";b.setAttribute("aria-pressed","false");
+  b.innerHTML=`<span class="ic">${o.ic}</span>${o.name}`;
+  b.onclick=()=>{sel.oficio=o.id;sel.variante=0;sync(oficiosEl,b);render();};
+  oficiosEl.appendChild(b);
+});
+
+const sitEl=document.getElementById("situaciones");
+SITUACIONES.forEach(s=>{
+  const b=document.createElement("button");
+  b.className="opt sit";b.setAttribute("aria-pressed","false");
+  b.innerHTML=`<span class="ic">${s.ic}</span><span class="t">${s.t}<small>${s.s}</small></span>`;
+  b.onclick=()=>{sel.situacion=s.id;sel.variante=0;sync(sitEl,b);render();};
+  sitEl.appendChild(b);
+});
+
+function sync(container,active){
+  [...container.children].forEach(c=>c.setAttribute("aria-pressed", c===active?"true":"false"));
+}
+
+function currentText(){
+  const o=OFICIOS.find(x=>x.id===sel.oficio);
+  const data=MENSAJES[sel.situacion];
+  return data.variantes[sel.variante](o);
+}
+
+function render(){
+  const box=document.getElementById("result");
+  if(!sel.oficio || !sel.situacion){return;}
+  const o=OFICIOS.find(x=>x.id===sel.oficio);
+  const sitObj=SITUACIONES.find(x=>x.id===sel.situacion);
+  const data=MENSAJES[sel.situacion];
+  const total=data.variantes.length;
+  const text=currentText();
+
+  let dots="";
+  for(let i=0;i<total;i++){
+    dots+=`<button class="vdot ${i===sel.variante?'on':''}" data-i="${i}" aria-label="Versión ${i+1}">${i+1}</button>`;
+  }
+
+  box.innerHTML=`
+    <div class="card">
+      <div class="card-top">
+        <span class="tag">Mensaje listo · <b>${sitObj.t} · ${o.name}</b></span>
+        <span class="vlabel">Versión ${sel.variante+1} de ${total}</span>
+      </div>
+      <div class="vbar">${dots}</div>
+      <div class="msg" id="msgText">${escapeHtml(text)}</div>
+      <div class="why"><b>Por qué funciona:</b> ${data.why}</div>
+      <div class="card-actions">
+        <button class="copy-btn" id="copyBtn">📋 Copiar mensaje</button>
+        <div class="nav">
+          <button id="otraVersion">🔀 Ver otra versión</button>
+          <button id="otroMomento">↑ Cambiar momento</button>
+        </div>
+        <div class="counter">Recuerda cambiar [nombre] y [X] por los datos reales antes de enviar.</div>
+      </div>
+    </div>`;
+
+  document.getElementById("copyBtn").onclick=()=>copyMsg(currentText());
+  document.getElementById("otraVersion").onclick=()=>{sel.variante=(sel.variante+1)%total;render();};
+  document.getElementById("otroMomento").onclick=()=>document.getElementById("situaciones").scrollIntoView({behavior:"smooth",block:"center"});
+  box.querySelectorAll(".vdot").forEach(d=>{
+    d.onclick=()=>{sel.variante=parseInt(d.dataset.i);render();};
+  });
+  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+function copyMsg(text){
+  const btn=document.getElementById("copyBtn");
+  const done=()=>{
+    btn.textContent="✅ ¡Copiado!";btn.classList.add("done");showToast();
+    setTimeout(()=>{btn.textContent="📋 Copiar mensaje";btn.classList.remove("done");},2200);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(()=>fallbackCopy(text,done));
+  } else {fallbackCopy(text,done);}
+}
+function fallbackCopy(text,cb){
+  const ta=document.createElement("textarea");
+  ta.value=text;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");}catch(e){}
+  document.body.removeChild(ta);cb();
+}
+let toastTimer;
+function showToast(){
+  const t=document.getElementById("toast");t.classList.add("show");
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),2400);
+}
+function escapeHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+</script>
+</body>
+</html>
